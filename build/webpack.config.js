@@ -1,13 +1,17 @@
 /*
 * @Author: mengyue
 * @Date:   2018-11-15 11:03:48
-* @Last Modified by:   mengyue
-* @Last Modified time: 2018-11-16 14:29:17
+* @Last Modified by:   MengYue
+* @Last Modified time: 2018-11-16 17:41:44
 */
 const path = require('path');
 // const entry = require('./entry.js');
+const vue = require('vue');
+const vueClassComponent = require('vue-class-component');
+const VuePropertyDecorator = require('vue-property-decorator');
 const env = process.env.NODE_ENV;
 const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals')
 // const alias = require('./alias.js');
 
 module.exports = {
@@ -59,13 +63,16 @@ module.exports = {
         extensions:['.vue', '.js', '.ts', '.less', 'json'],
         // modules: ['node_modules'], // 解析模块应该搜索的目录
         alias:{
-            '@': path.resolve(__dirname,'../src'),
+            '@': path.resolve(__dirname,'../src/components/'),
         }
     },
     plugins: [
         new webpack.ProvidePlugin({
-            identifier: ['vue', 'vue-class-component','Vue-Property-Decorator']
+            Vue: 'vue', 
+            Component: 'vueClassComponent',
+            Dec: 'VuePropertyDecorator'
         })
-    ]
+    ],
+    externals: [nodeExternals()],
 
 }
